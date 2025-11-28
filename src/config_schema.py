@@ -17,3 +17,4 @@ class TrainConfig:
     val_split: float = 0.2
     seed: int = 42
     use_mlflow: bool = True
+    use_advanced_metrics: bool = False

@@ -39,7 +39,7 @@ class ButterflyTrainer:
         ]
 
         if self.config.use_mlflow:
-            mlflow.tensorflow.autolog(log_models=False)
+            mlflow.tensorflow.autolog(log_models=False, log_datasets=False)
 
         logger.info(f"Starting training for {self.config.epochs} epochs...")
         
@@ -50,7 +50,7 @@ class ButterflyTrainer:
             callbacks=callbacks
         )
         
-        if self.config.use_mlflow:
+        if self.config.use_advanced_metrics:
             self.evaluate_and_log_advanced_metrics()
             
         return history
@@ -102,6 +102,5 @@ class ButterflyTrainer:
         ax.set_ylabel('True')
         ax.set_title('Confusion Matrix')
         
-        # Save plot to MLflow
         mlflow.log_figure(fig, "confusion_matrix.png")
         plt.close(fig)
